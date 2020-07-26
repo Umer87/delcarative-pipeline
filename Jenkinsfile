@@ -20,7 +20,7 @@ pipeline {
     options { 
             buildDiscarder(logRotator(numToKeepStr: '2')) 
             disableConcurrentBuilds()
-            retry(2)
+            // retry(2)
         
         }
     environment {
@@ -32,6 +32,19 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 checkout scm
+            }
+        }
+        stage('Hold Triggger') {
+            input {
+                message "Should we continue?"
+                ok "Yes, we should."
+                submitter "alice,bob"
+                parameters {
+                    string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+                }
+            }
+            steps {
+                sh 'echo $PERSON'
             }
         }
         stage('Compile') {
@@ -56,6 +69,7 @@ pipeline {
         
             }
         }
+        
     }
 
     post {
