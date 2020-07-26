@@ -5,12 +5,17 @@ pipeline {
        pollSCM("* * * * *")
        upstream(upstreamProjects:'project1', threshold: hudson.model.Result.SUCCESS)
     }
+    environment {
+            JAVA_VERSION='1.8'
+            GIT_HUB_CREDS = credentials('github');
+    }
 
     stages {
         stage('Compile') {
             steps {
                 sh 'echo Hello World'
-                exit 1
+                sh  'echo $JAVA_VERSION'
+                sh 'echo GITHUB USER : $GIT_HUB_CREDS_USR'
             }
         }
         stage('Test') {
@@ -23,7 +28,7 @@ pipeline {
 
     post {
         always {
-             slackSend channel: '#devopsjune', message: 'Build No :' env.BUILD_ID + 'With name '+ env.BUILD_DISPLAY_NAME  + ' Completed'
+             slackSend channel: '#devopsjune', message:  env.BUILD_DISPLAY_NAME  + ' Completed'
         }
         changed {
              sh 'echo build changed'
