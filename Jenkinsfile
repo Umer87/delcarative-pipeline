@@ -6,12 +6,12 @@ pipeline {
        upstream(upstreamProjects:'project1', threshold: hudson.model.Result.SUCCESS)
     }
     parameters { string(name: 'DEPLOY_ENV', defaultValue: 'staging', description: '') }
-    
+
     options { 
             buildDiscarder(logRotator(numToKeepStr: '2')) 
             disableConcurrentBuilds()
             retry(2)
-            timeout( time: 2, unit: 'SECONDS')
+        
         }
     environment {
             JAVA_VERSION='1.8'
