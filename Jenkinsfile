@@ -23,7 +23,7 @@ pipeline {
 
     post {
         always {
-             slackSend channel: '#devopsjune', message: env.BUILD_ID + 'Completed'
+             slackSend channel: '#devopsjune', message: 'Build No :' env.BUILD_ID + 'With name '+ env.BUILD_NAME  + ' Completed'
         }
         changed {
              sh 'echo build changed'
@@ -32,13 +32,13 @@ pipeline {
             sh 'echo wohha build is not fixed'
         }
         failure {
-            slackSend channel: '#devopsjune', message: $env.BUILD_ID + 'Failed'
+            slackSend channel: '#devopsjune', message: env.BUILD_ID + 'Failed'
         }
         success {
             sh 'echo Project is successfull'
         }
         unstable {
-             slackSend channel: '#devopsjune', message: $env.BUILD_ID + 'Failed'
+             slackSend channel: '#devopsjune', message: env.BUILD_ID + 'Failed'
         }
     }
 }
