@@ -5,6 +5,10 @@ pipeline {
        pollSCM("* * * * *")
        upstream(upstreamProjects:'project1', threshold: hudson.model.Result.SUCCESS)
     }
+    options { 
+            buildDiscarder(logRotator(numToKeepStr: '2')) 
+            disableConcurrentBuilds()
+        }
     environment {
             JAVA_VERSION='1.8'
             GIT_HUB_CREDS = credentials('github');
