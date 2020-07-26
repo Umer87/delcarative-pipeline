@@ -31,7 +31,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                checkoutscm
+                checkout scm
             }
         }
         stage('Compile') {
