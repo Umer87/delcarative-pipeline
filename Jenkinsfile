@@ -3,7 +3,7 @@ pipeline {
 
      tools {
         maven 'm3.6'
-        java  'jdk8' 
+        jdk  'jdk8' 
     }
 
     triggers {
