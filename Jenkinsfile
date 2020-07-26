@@ -29,13 +29,13 @@ pipeline {
              sh 'echo build changed'
         }
         fixed {
-            sh 'wohha build is not fixed'
+            sh 'echo wohha build is not fixed'
         }
         failure {
-            sh 'Failed for a reason'
+            slackSend channel: '#devopsjune', message: ${BUILD_ID}+'Failed'
         }
         success {
-            echo 'Project is successfull'
+            sh 'echo Project is successfull'
         }
     }
 }
