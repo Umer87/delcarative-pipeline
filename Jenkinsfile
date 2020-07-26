@@ -5,7 +5,12 @@ pipeline {
        pollSCM("* * * * *")
        upstream(upstreamProjects:'project1', threshold: hudson.model.Result.SUCCESS)
     }
-    parameters { string(name: 'DEPLOY_ENV', defaultValue: 'staging', description: '') }
+    parameters { 
+
+            string(name: 'DEPLOY_ENV', defaultValue: 'staging', description: '')
+            choice(name: 'TARGET_ENV', choices: ['STAGING','PROD',"QA"]  description: '') 
+    
+    }
 
     options { 
             buildDiscarder(logRotator(numToKeepStr: '2')) 
