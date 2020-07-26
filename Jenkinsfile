@@ -23,7 +23,7 @@ pipeline {
 
     post {
         always {
-             slackSend channel: '#devopsjune', message: $env.BUILD_ID + 'Completed'
+             slackSend channel: '#devopsjune', message: env.BUILD_ID + 'Completed'
         }
         changed {
              sh 'echo build changed'
