@@ -1,16 +1,21 @@
 pipeline {
     agent any
 
+     tools {
+        maven 'm3.6'
+        java  'jdk8' 
+    }
+
     triggers {
        pollSCM("* * * * *")
        upstream(upstreamProjects:'project1', threshold: hudson.model.Result.SUCCESS)
     }
-    parameters { 
+    // parameters { 
 
-            string(name: 'DEPLOY_ENV', defaultValue: 'staging', description: '')
-            choice(name: 'TARGET_ENV', choices: ['STAGING','PROD','QA'],  description: '') 
+    //         string(name: 'DEPLOY_ENV', defaultValue: 'staging', description: '')
+    //         choice(name: 'TARGET_ENV', choices: ['STAGING','PROD','QA'],  description: '') 
     
-    }
+    // }
 
     options { 
             buildDiscarder(logRotator(numToKeepStr: '2')) 
@@ -24,24 +29,30 @@ pipeline {
     }
 
     stages {
-        stage('Compile') {
+        stage('Checkout Code') {
             steps {
-                sh 'echo Hello World'
-                sh  'echo $JAVA_VERSION'
-                sh 'echo GITHUB USER : $GIT_HUB_CREDS_USR'
-            
+                checkoutscm
             }
         }
-        stage('Test') {
+        stage('Compile') {
             environment {
                     JAVA_VERSION='1.7'
                     GIT_HUB_CREDS = credentials('github');
                 }
             steps {
-                sh  'echo $JAVA_VERSION'
-                sh 'echo Test'
-                sh 'echo GITHUB USER : $GIT_HUB_CREDS'
-                sleep 5;
+                sh 'mvn compile'
+        
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+        
+            }
+        }
+         stage('Package') {
+            steps {
+                sh 'mvn package'
         
             }
         }
