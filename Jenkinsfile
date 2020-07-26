@@ -45,7 +45,7 @@ pipeline {
             }
             steps {
                 script {
-                    if($JAVA_VERSION=='1.8') {
+                    if(env.JAVA_VERSION=='1.8') {
                         sh 'echo ************HI*************'
                     }else {
                          sh 'echo ##########HI#############'
