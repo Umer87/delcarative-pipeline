@@ -44,7 +44,21 @@ pipeline {
                 }
             }
             steps {
-                sh 'echo $PERSON'
+                script {
+                    if($JAVA_VERSION=='1.8') {
+                        sh 'echo ************HI*************'
+                    }else {
+                         sh 'echo ##########HI#############'
+                    }
+                }
+            }
+        }
+        stage('Experimental') {
+             when {
+                branch 'master'
+            }
+            steps {
+                sh 'echo $$$$$$$$$ HELLO $$$$$$'
             }
         }
         stage('Compile') {
