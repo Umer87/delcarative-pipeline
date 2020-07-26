@@ -32,7 +32,7 @@ pipeline {
             sh 'echo wohha build is not fixed'
         }
         failure {
-            slackSend channel: '#devopsjune', message: ${BUILD_ID}+'Failed'
+            slackSend channel: '#devopsjune', message: $env.BUILD_ID + 'Failed'
         }
         success {
             sh 'echo Project is successfull'
