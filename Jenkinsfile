@@ -8,7 +8,7 @@ pipeline {
     parameters { 
 
             string(name: 'DEPLOY_ENV', defaultValue: 'staging', description: '')
-            choice(name: 'TARGET_ENV', choices: ['STAGING','PROD',"QA"]  description: '') 
+            choice(name: 'TARGET_ENV', choices: ['STAGING','PROD','QA'],  description: '') 
     
     }
 
