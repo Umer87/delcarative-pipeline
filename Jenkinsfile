@@ -9,7 +9,7 @@ pipeline {
             buildDiscarder(logRotator(numToKeepStr: '2')) 
             disableConcurrentBuilds()
             retry(2)
-            timeout( 2, unit: 'SECONDS')
+            timeout( time: 2, unit: 'SECONDS')
         }
     environment {
             JAVA_VERSION='1.8'
