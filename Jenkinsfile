@@ -5,6 +5,8 @@ pipeline {
        pollSCM("* * * * *")
        upstream(upstreamProjects:'project1', threshold: hudson.model.Result.SUCCESS)
     }
+    parameters { string(name: 'DEPLOY_ENV', defaultValue: 'staging', description: '') }
+    
     options { 
             buildDiscarder(logRotator(numToKeepStr: '2')) 
             disableConcurrentBuilds()
