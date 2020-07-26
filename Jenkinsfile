@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     triggers {
-       upstream(upstreamProjects:{'project1'})
+       upstream(upstreamProjects:'project1', threshold: hudson.model.Result.SUCCESS)
     }
 
     stages {
