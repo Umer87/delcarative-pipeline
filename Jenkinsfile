@@ -9,6 +9,7 @@ pipeline {
             buildDiscarder(logRotator(numToKeepStr: '2')) 
             disableConcurrentBuilds()
             retry(2)
+            timeout( 2, unit: 'SECONDS')
         }
     environment {
             JAVA_VERSION='1.8'
@@ -33,7 +34,7 @@ pipeline {
                 sh  'echo $JAVA_VERSION'
                 sh 'echo Test'
                 sh 'echo GITHUB USER : $GIT_HUB_CREDS'
-                exit 1
+                sleep 5;
         
             }
         }
@@ -45,6 +46,7 @@ pipeline {
         }
         changed {
              sh 'echo build changed'
+    
         }
         fixed {
             sh 'echo wohha build is not fixed'
